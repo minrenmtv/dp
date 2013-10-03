@@ -7,19 +7,44 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+ADMIN_REORDER = (
+    ('trackr', ('Project', 'Milestone', 'Task')),
+
+)
+
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/minrenmtv/webapps/dataplayground/myproject/db/dp.sqlite',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+import socket
+
+try:
+    HOSTNAME = socket.gethostname()
+except:
+    hostname = 'localhost'
+
+if HOSTNAME == 'minrenmtv.webfactional.com':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': '/home/minrenmtv/webapps/dataplayground/myproject/db/dp.sqlite',                      # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '',                      # Set to empty string for default.
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': '/Users/mren/Projects/python/dp/db/dp.sqlite',                      # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '',                      # Set to empty string for default.
+        }
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -130,6 +155,8 @@ INSTALLED_APPS = (
     'suit',
     'django.contrib.admin',
     'dp',
+    'trackr',
+    'django_markdown'
     # 'django.contrib.admindocs',
 )
 
