@@ -1,5 +1,5 @@
 import unittest
-from dataStructure import Stack
+from dataStructure import Stack, parChecker, genParChecker
 
 class TestStack(unittest.TestCase):
 
@@ -34,6 +34,18 @@ class TestStack(unittest.TestCase):
 		self.assertEqual(s.size(), 1)
 
 
+class TestParCheck(unittest.TestCase):
+	def test_simple_par(self):
+		self.assertEqual(parChecker('((()))'), True)
+		self.assertEqual(parChecker('((()'), False)
+	
+	def test_multi_par(self):
+		self.assertEqual(genParChecker('{{([][])}()}'), True)
+		self.assertEqual(genParChecker('[[{{(())}}]]'), True)
+		self.assertEqual(genParChecker('[][][]()(){}{}'), True)
+		self.assertFalse(genParChecker('([)]'))
+		self.assertFalse(genParChecker('((()]))'))
+		self.assertFalse(genParChecker('[{()]'))
 
 
 if __name__ == "__main__":
